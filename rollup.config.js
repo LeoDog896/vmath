@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
+import copy from 'rollup-plugin-copy'
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -39,6 +40,13 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		copy({
+			targets: [
+				{ src: "node_modules/mathlive/dist/fonts", dest: "public/build" },
+				{ src: "node_modules/mathlive/dist/mathlive-static.css", dest: "public/build" },
+				{ src: "node_modules/mathlive/dist/mathlive-fonts.css", dest: "public/build" }
+			]
+		}),
 		svelte({
 			// enable run-time checks when not in production
 			compilerOptions: {
