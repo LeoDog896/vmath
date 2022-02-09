@@ -23,12 +23,13 @@
 			onKeystroke: (__, keystroke, ___) => {
 				if (keystroke === '[Backspace]' && mf.value == "" && mathFields.length > 1) {
 					mathFields = [...mathFields.slice(0, i), ...mathFields.slice(i + 1)];
-
-					if (i == 0) {
-						document.getElementById("math-0").focus()
-					} else {
-						document.getElementById("math-" + (i - 1)).focus()
-					}
+					tick().then(() => {
+						if (i == 0) {
+							document.getElementById("math-0").focus()
+						} else {
+							document.getElementById("math-" + (i - 1)).focus()
+						}
+					})
 
 					return false;
 				}
@@ -39,15 +40,17 @@
 	})
 
 </script>
-<div>
+<div class="w-1/2">
 	{#each mathFields as math, i}
-		<math-field 
+		<math-field
+		
 			virtual-keyboard-mode=manual
 			smart-mode=true
 			smart-fence=true
 			smart-superscript=true
 			id="math-{i}"
 			on:change={(e) => input(e, i)}
+			on:input={(e) => mathFields[i] = e.target.value}
 		>
 			{math}
 		</math-field>
