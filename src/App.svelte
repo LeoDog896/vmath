@@ -16,6 +16,27 @@
 		document.getElementById("math-" + (index + 1)).focus()
 	}
 
+	$: mathFields.forEach(async (_, i) => {
+		await tick()
+		let mf = document.getElementById("math-" + i) as any
+		mf.setOptions({
+			onKeystroke: (__, keystroke, ___) => {
+				if (keystroke === '[Backspace]' && mf.value == "" && mathFields.length > 1) {
+					mathFields = [...mathFields.slice(0, i), ...mathFields.slice(i + 1)];
+
+					if (i == 0) {
+						document.getElementById("math-0").focus()
+					} else {
+						document.getElementById("math-" + (i - 1)).focus()
+					}
+
+					return false;
+				}
+				// Keystroke not handled, return true for default handling to proceed.
+				return true;
+			}
+		});
+	})
 
 </script>
 <div>
