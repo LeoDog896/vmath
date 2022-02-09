@@ -43,6 +43,7 @@ export default {
 		copy({
 			targets: [
 				{ src: "node_modules/mathlive/dist/fonts", dest: "public/build" },
+				{ src: "node_modules/mathlive/dist/sounds", dest: "public/build" },
 				{ src: "node_modules/mathlive/dist/mathlive-static.css", dest: "public/build" },
 				{ src: "node_modules/mathlive/dist/mathlive-fonts.css", dest: "public/build" }
 			]
